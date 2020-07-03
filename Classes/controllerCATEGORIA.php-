@@ -1,0 +1,21 @@
+<?php require_once('modelCATEGORIA.php');?>
+<?php
+class  controllerCATEGORIA
+{
+    var $command;
+    var $resposta;
+    var $arrResposta = array();
+	
+	public function controllerCATEGORIA($action,$arrDados=false)
+	{
+		$this->command = new CATEGORIA();
+
+		switch($action)
+		{
+			case 'selectCategoria':
+				$this->arrResposta = $this->command->selectCategoria($arrDados);
+				break;
+		}
+	}
+}
+?>

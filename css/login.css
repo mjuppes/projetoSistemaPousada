@@ -1,0 +1,40 @@
+#login{
+	background:url('../img/login.png') #CCC no-repeat top left;
+	border:1px solid #AAA;
+	font-size:10pt;	
+	width:320px;
+	margin: 100px auto;
+	margin-top:40px;
+}
+
+#formLogin{
+	padding:30px 60px;
+}
+
+#login p{
+	line-height:180%;
+}
+
+#login label{
+	display:inline-block;
+	width:60px;
+}
+
+.inputLogin{
+	width:120px;
+}
+
+.submitLogin{
+	background:url('../img/btBuscar.gif') #E5ECEE no-repeat left center;
+	width:80px !important;
+	padding-left:12px;
+	margin-top:10px;
+	border:1px solid #BBB !important;
+	height:25px;
+	color:#044561;
+	font-weight:bold;
+	cursor:pointer;
+}
+.submitLogin:hover{
+	background-color:#DDD !important;
+}

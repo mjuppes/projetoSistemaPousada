@@ -1,0 +1,44 @@
+<div id="tudo">
+		<div id="cabecalho">
+			<?php include "../topo.php"; ?>	
+		</div>
+		<div id="conteudo">
+			<div class="voltar"><a href="javascript:history.go(-1);">Voltar</a></div>
+				<div class="erros"></div>
+				<a class="btnAcoesSemIco btnConsulta" href="consulta_empresa.php">Consultar Empresas</a>
+				<form action="viewEmpresa.php" name="formInserirEmpresa" id="formInserirEmpresa" method="POST" class="formularios" enctype="multipart/form-data">
+					<p class="linha">
+						<label class="labelPq" for="formNomeEmpresa">Nome da Empresa:</label>
+						<input type="text" id="formNomeEmpresa"  name="formNomeEmpresa" class="inputTxt inputTextMedio" value="" />
+					</p>
+					<p class="linha">
+						<label class="labelPq" for="formSelectTipoEmpresa">Tipo de empresa:</label>
+						<select id="formSelectTipoEmpresa" name="formSelectTipoEmpresa" class="selectMed">
+							<option value="">Selecione um tipo de empresa</option>
+						</select>
+					</p>
+					<p class="linha">
+						<label class="labelPq" for="formEnderecomEmpresa">Endereço:</label>
+						<input type="text" id="formEnderecomEmpresa"  name="formEnderecomEmpresa" class="inputTxt inputTextPq" value="" />
+					</p>
+					<p class="linha">
+						<label class="labelPq" for="formTelefoneEmpresa">Telefone:</label>
+						<input type="text" id="formTelefoneEmpresa"  name="formTelefoneEmpresa" class="inputTxt inputTextMedio" value="" />
+					</p>
+					<p class="linha">
+						<label class="labelPq" for="formContatoEmpresa">Contato:</label>
+						<input type="text" id="formContatoEmpresa"  name="formContatoEmpresa" class="inputTxt inputTextMedio" value="" />
+					</p>
+					<p class="linha">
+						<label class="labelPq" for="formEmail">Email:</label>
+						<input type="text" id="formEmail"  name="formEmail" class="inputTxt inputTextMedio" value="" />
+					</p>
+					<input type="submit" id="formEmpresa_submit" name="formEmpresa_submit" class="inputSubmit" value="Inserir"/>
+					<input type="hidden" id="formIdEmpresa" value="">
+					<span id="mensagem"></span>
+				</form>
+		</div>	
+		<div id="rodape">
+			<?php include "../rodape.php"; ?>
+		</div>
+	</div>

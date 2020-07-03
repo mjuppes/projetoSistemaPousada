@@ -1,0 +1,200 @@
+/*
+form {
+	position:relative;
+	margin:0;
+	padding:0;
+	font-family:tahoma;
+	font-size:12px;
+}
+
+form label {
+	font-weight:bold;
+	padding:2px 0;
+	padding-left:5px;
+	background-color:#EEE;
+	border:1px solid #DDD;
+}
+
+form input{
+
+}
+form .grupos h1{
+	font-size:16px;
+	color:black;
+	border-bottom:1px solid #DDD;
+	padding-bottom:5px;
+	padding-left:5px;
+}
+
+form .inputText, form.inputSelect, .span_input{
+	border:1px solid #BBB;
+}
+
+form .inputTextMini { width: 50px; }
+
+form .inputTextPq { width: 110px; }
+
+form .inputTextPqMedio { width: 160px; }
+
+form .inputTextMedio { width: 250px; }
+
+form .inputTextGrande { width: 400px; }
+
+form .textareaMedio{ width: 400px; height: 100px; }
+
+form .textareaGrande{ width: 600px; height: 150px; }
+
+form .selectPq{ width: 115px; }
+
+form .selectMed{ width: 250px; }
+
+form .selectGr{ width: 450px; }
+
+form .obs{
+	font-size:10px;
+	font-style:normal;
+}
+
+form .linha{
+	display:block;
+	margin:10px 0;
+}
+
+form .label_block{
+	display:block !important;
+	margin-bottom:10px;
+}
+form .labelMini{
+	display:inline-block;
+	width:40px;
+}
+
+form .labelPq{
+	display:inline-block;
+	width:120px;
+}
+
+form .labelMedio{
+	display:inline-block;
+	width:160px;
+}
+
+form .labelGrande{
+	display:inline-block;
+	width:730px;
+}
+
+form .camposDinamicos{
+	margin-left:10px;
+}
+form .inputSubmit{
+	cursor:pointer;
+	border:none;
+	width:125px;
+	padding:5px 0;
+	background-color:#EEE;
+	border:1px solid #044561;
+	font-weight:bold;
+}
+form .input_button{
+	border:1px solid #BBB;
+	cursor:pointer;
+}
+form .quebra_empreiteiras{
+	display:block;
+}
+
+form #limitCarct{
+	color:blue;
+	font-size:10px;
+	padding:2px;
+}
+*/
+/*erros*/
+div.erros{
+	color:red;
+	font-family:verdana;
+	font-size:10px;
+}
+div.erros li{
+	margin-left:25px;
+	list-style-image:url("../img/erro.gif");
+}
+
+input.error, select.error, textarea.error{
+	border:1px dashed red !important;
+}
+
+form .disable {
+	background-color:#EEE;
+}
+
+form .grupos{
+	border:1px dashed #DDD;
+	margin:10px 0;
+	padding:5px;
+}
+.span_input{
+	display:inline-block;
+	width: 112px;
+	height:13px;
+	margin-bottom:-5px;
+	padding:2px 0;
+	background-color:#EEE;
+}
+.novo{
+	text-decoration:none;
+	background: url('../img/novo.gif') no-repeat left center;
+	display:inline-block;
+	width:150px;
+	padding:4px 0;
+	padding-left:30px;
+	margin-left:5px;
+	border-bottom:1px solid #DDD;
+	margin-bottom:10px;
+}
+
+
+#situacaoNconf{
+	background-color:#EEE;
+	margin-bottom:-10px;
+	margin-top:10px;
+	padding:5px 0;
+	text-align:right;
+	padding-right:10px;
+	font-weight:bold;
+}
+
+#formNconf_ocorrencia{
+	text-transform:uppercase;
+}
+.btn_disabled{
+	background-color:#DDD !important;
+	color:#EEE !important;
+}
+
+#retornoForm{
+	font-size:10pt;
+	font-weight:bold;
+	padding:10px 5px 10px 50px;	
+	margin-bottom:20px;
+}
+.cadOK{
+	background: url('../img/icone-ok.gif') no-repeat left center;
+	color:#228B22;
+}
+
+.cadErro{
+	background: url('../img/icone-erro.gif') no-repeat left center;
+	color:#FF0000;
+}
+
+#formFiltroBO{
+	margin-bottom:25px;
+}
+.inputFiltro{
+	cursor:pointer;
+	width:50px;
+	background-color:#EEE;
+	border:1px solid #044561;
+}

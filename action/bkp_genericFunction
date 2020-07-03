@@ -1,0 +1,432 @@
+<?php
+
+include "class.upload.php";
+
+	/**
+	* @Descrição: método que recebe
+	* parâmetro de data e retorna a data
+	* formatada para inserir no banco
+	* @author Marcio (mjuppes@gmail.com)
+	*/
+
+function getDiaSemana($data)
+{
+		$diaa=substr($data,0,2)."-";
+		$mes=substr($data,3,2)."-";
+		$ano=substr($data,6,4);
+		$diasemana = date("w", mktime(0,0,0,$mes,$diaa,$ano) );
+
+		switch($diasemana)
+		{
+			case 0: $dia_semana = "Domingo";
+				break;
+			case 1: $dia_semana = "Segunda-Feira";
+				break;
+			case 2: $dia_semana = ("Terça-Feira");
+				break;
+			case 3: $dia_semana = "Quarta-Feira";
+				break;
+			case 4: $dia_semana = "Quinta-Feira";
+				break;
+			case 5: $dia_semana = "Sexta-Feira";
+				break;
+			case 6: $dia_semana = ("Sábado");
+				break;
+		}
+		return utf8_encode($dia_semana);
+}
+function selectCombo($label='',$arrSelect,$tipo=true,$idPost=false,$idCombo=false,$dadoCombo=false,$encode=true)
+{
+	$strSelect = "";
+	$strSelect .= "<option value=''>".$label."</option>";
+
+	if(empty($arrSelect))
+	{
+		$strSelect .= "<option value=''>-----------</option>";
+		return $strSelect;
+	}
+
+	if(!$tipo)
+	{
+		foreach($arrSelect as $value => $key)
+		{
+				if(isset($idPost))
+				{
+					if($idPost == $key)
+						$strSelect .= "<option SELECTED value='$key' >".($value)."</option>";
+					else
+						$strSelect .= "<option value='$key' >".($value)."</option>";
+				}
+				else
+					$strSelect .= "<option value='$key' >".($value)."</option>";
+		}
+	}
+	else
+	{
+		foreach($arrSelect as $dados)
+		{
+				if(($idPost))
+				{
+					if($idPost == $dados[$idCombo])
+						$strSelect .= "<option SELECTED value='$dados[$idCombo]' >".($dados[$dadoCombo])."</option>";
+					else
+						$strSelect .= "<option value='$dados[$idCombo]' >".($dados[$dadoCombo])."</option>";
+				}
+				else
+					$strSelect .= "<option value='$dados[$idCombo]' >".($dados[$dadoCombo])."</option>";
+		}
+	}
+	if($enconde)
+		return utf8_encode($strSelect);
+	else
+		return ($strSelect);
+}
+
+function dump($arr)
+{
+	echo "<pre>";
+		print_r($arr);
+	echo "</pre>";
+}
+
+
+function formatDate($data='',$tipo=false,$p=false)
+{
+	if(empty($data))
+		return NULL;
+
+	if($tipo == false)
+	{
+		$dta = explode("/", $data);
+		$dia = $dta[0];
+		$mes = $dta[1];
+		$ano = $dta[2];
+
+		$dataFormatada = $ano."/".$mes."/".$dia;
+	}
+	else
+	{
+		$dta = explode("-", $data);
+		$ano = $dta[2];
+		$mes = $dta[1];
+		$dia = $dta[0];
+
+		$dataFormatada = $dia."/".$mes."/".$ano;
+	}
+	
+	if($p)
+		return "'".$dataFormatada."'";
+	else
+		return $dataFormatada;
+}
+
+function formataDouble($valor){
+	
+	if ($valor == NULL){
+		return 0;
+	} else {
+		$procura    = array('.',',','R$ ');
+		$substituir = array('','.',''); 
+		return str_replace($procura,$substituir,$valor);
+	}		
+}
+
+/**
+* @Descrição: método que recebe
+* parâmetro de valor decimal e retorna o valor
+* formatado para inserir no banco
+* @author Marcio (mjuppes@gmail.com)
+*/
+
+function decimal($valor='')
+{
+	$valorDecimal = str_replace('.','', $valor);
+	$valorDecimal = str_replace(',','.', $valorDecimal);
+	return $valorDecimal;
+}
+
+
+function reduz_imagem($img, $max_x, $max_y, $nome_foto) {
+	
+	/************************
+	@Exemplo: 
+	@$foto = "foto.jpg";
+	@reduz_imagem($foto, 300, 200, "nome_final.jpg")
+	******************/
+	//pega o tamanho da imagem ($original_x, $original_y)
+	list($width, $height) = getimagesize($img);
+	
+	$original_x = $width;
+	$original_y = $height;
+	
+	// se a largura for maior que altura
+	if($original_x > $original_y) {
+	   $porcentagem = (100 * $max_x) / $original_x;	  
+	}
+	else {
+	   $porcentagem = (100 * $max_y) / $original_y;  
+	}
+	
+	$tamanho_x = $original_x * ($porcentagem / 100);
+	$tamanho_y = $original_y * ($porcentagem / 100);
+	
+	$image_p = imagecreatetruecolor($tamanho_x, $tamanho_y);
+	$image   = imagecreatefromjpeg($img);
+	imagecopyresampled($image_p, $image, 0, 0, 0, 0, $tamanho_x, $tamanho_y, $width, $height);
+	
+	
+	return imagejpeg($image_p, $nome_foto, 100);
+
+}
+
+function carregaFoto($file,$nome_arquivo,$image_x,$dir){
+/*
+	utilizado para fazer o upload de fotos
+	{file}          nome do input file do formulário
+	{nome_arquivo}  novo nome do arquivo carregado, deve ter no máximo 25 caracteres contando a extensão
+	{image_x}       redimencionar novo tamanho da imagem
+	{dir}           diretorio onde a foto ficará armazenada
+*/	
+	
+	$handle = new Upload($_FILES["$file"]);
+	
+	if ($handle->uploaded){ #carrega a foto
+		$handle->image_resize       = true;
+		$handle->image_ratio_y      = true;
+		$handle->image_x            = $image_x;
+		$handle->file_new_name_body = $nome_arquivo;
+		$handle->image_convert      = 'jpg';
+		$handle->Process($dir);
+		
+		if ($handle->processed){ #redimencionamento OK
+			$arquivo = $handle->file_dst_name;
+		} else {
+			return 3; #erro 3
+		}
+		
+		$handle->image_resize = true;
+		$handle->image_ratio_y = true;
+		$handle->image_x = 160;
+		$handle->image_y = 120;
+		$handle->image_contrast = 10;
+		$handle->jpeg_quality = 70;
+		$handle->file_new_name_body = $nome_arquivo;
+		$handle->image_convert = 'jpg';
+		$handle->Process("$dir/thumbs");
+		$handle-> Clean();		
+
+	} else {
+		return 2;     #erro 2
+	}
+	return 1;         #carregamento da foto ok
+}
+
+function verificarExtensao($ext)
+{
+
+	$arrExtensao = array("txt","exe","aspx","html","xlsx","docx","asp","cvs",
+						 "arj","asf","asp","avi","bmp","bak","bat","bin",
+						 "cab","cdi","cfg","com","dat","dll","dxf",
+						 "exe","eps","fhx","fla","gif","html","hlp","ini",
+						 "ico","js","log","lnk","max","mdb","mid","mp3",
+						 "mpg","mov","nrg","ogg","ole","php","pic","png",
+						 "ppt","qxd","rm","rtf","reg","scr","swf","tar",
+						 "ttf","tif","tmp","vob","wab","wav","wri");
+
+	if(strlen($ext) != 3)
+	{
+		return false;
+	}
+	else
+	{
+		if(in_array($ext, $arrExtensao))
+		{
+			return false;
+		}
+		return true;
+	}
+}
+
+function converByteFormatMb($tamanhoOriginal)
+{
+	$tamanho = $tamanhoOriginal/1024;
+	$tamanho = $tamanho/1024;
+	$tamanho = number_format($tamanho, 2, '.', '');
+	return $tamanho;
+}
+
+function formatValor($valor)
+{
+	$valor = str_replace(",",".",$valor);
+
+	$arrValor = explode(".", $valor);
+
+	$key2 = (count($arrValor)-1);
+	$preco = "";
+
+	if(count($arrValor) > 1)
+	{
+		foreach($arrValor as $key => $value)
+		{
+			if($key != $key2)
+			{
+				$preco .= $value;
+			}
+			else
+			{
+				$preco.=".".$value;
+			}
+		}
+	}
+	else
+	{
+		$preco = $valor;
+	}
+	return $preco;
+}
+
+function arrItervaloDias($dataInicial='',$dataFinal='')
+{
+	$arrDataIntervalo = array();
+	for ($i = strtotime($dataInicial); $i <= strtotime($dataFinal); $i=$i+86400) 
+	{
+		$dataValue = formatDate(date("d-m-Y",$i),true);
+		array_push($arrDataIntervalo,$dataValue);
+	} 
+
+	return $arrDataIntervalo;
+}
+
+function montarTdIntervalo($data='', $arrTodosIntervalos=false)
+{
+
+	if(in_array($data, $arrTodosIntervalos))
+		$strTd.="<td bgcolor='#F08080' align='center'>".$data."</td>";
+	else
+		$strTd.="<td  align='center'>".$data."</td>";
+	return $strTd;
+}
+
+
+function setDataCalendario($arrIdReservaQuarto,$arrIdQuarto=false,$arrNomeQuarto=false,$arrDataInicial=false,$arrDataFinal=false,$mes='',$ano='',$semana='',$arrAllQuartos=false)
+{
+	$aux = "";
+	foreach($arrIdReservaQuarto as $key => $value)
+	{
+			if($aux != $value)
+				$arrDataIntervalo[$value] = arrItervaloDias($arrDataInicial[$key][$value],$arrDataFinal[$key][$value]);
+			else
+				$arrDataIntervalo[$value] = array_merge($arrDataIntervalo[$value],arrItervaloDias($arrDataInicial[$key][$value],$arrDataFinal[$key][$value]));
+
+			$aux = $value;
+	}
+	
+	$ultimoDia = date('t', mktime(0, 0, 0, $mes, $mes, $ano));
+	$arrDiasSemana = array();
+
+	$strTable  = "";
+	$strTable .= "<table class='table  table-bordered table-condensed table-tablesorter' width='100%' border =1  bordercolor='#DDDDDD'>";
+    $strTable .= "<thead>";
+        $strTable .= "<tr>";
+            $strTable .= "<th>Quarto</th>";
+
+	for($i=0;$i<$ultimoDia;$i++)
+	{
+		$dia = $i+1;
+
+		if(strlen($dia) == 1)
+			$dia = "0".$dia;
+
+		$data = $dia."/".$mes."/".$ano;
+
+		switch($semana)	
+		{
+			case 1:
+				if($i< 7)
+				{
+					$strTable .= "<th>".getDiaSemana($data)."</th>";
+					array_push($arrDiasSemana,$data);
+				}
+			break;
+			case 2:
+				if($i< 14 && $i >=7)
+				{
+					$strTable .= "<th>".getDiaSemana($data)."</th>";
+					array_push($arrDiasSemana,$data);
+				}
+			break;
+			case 3:
+				if($i< 21 && $i  >=14)
+				{
+					$strTable .= "<th>".getDiaSemana($data)."</th>";
+					array_push($arrDiasSemana,$data);
+				}
+			break;
+			case 4:
+				if($i<= 27 && $i  >=21)
+				{
+					$strTable .= "<th>".getDiaSemana($data)."</th>";
+					array_push($arrDiasSemana,$data);
+				}
+			break;
+			case 5:
+				if($i<= 31 && $i  >=28)
+				{
+					$strTable .= "<th>".getDiaSemana($data)."</th>";
+					array_push($arrDiasSemana,$data);
+				}
+			break;
+		}
+	}
+    $strTable .= "</tr>";
+    $strTable .= "</thead>";
+    $strTable .= "<tbody>";
+
+	$arrAux = array();	
+
+	//Primeira parte com os quartos que tem reserva
+	foreach($arrIdQuarto as $key => $value)
+	{
+		if(!in_array($value, $arrAux))
+		{
+			$strTable .= "<tr>";
+			$strTable .= "<td>".$arrNomeQuarto[$value]."</td>";
+
+			$arrVDia = array();		
+			foreach($arrDataIntervalo[$value] as $key1 => $value2)
+			{
+					array_push($arrVDia,$value2);
+			}
+
+			for($i=0; $i<count($arrDiasSemana); $i++)
+			{
+				if(in_array($arrDiasSemana[$i],$arrVDia))
+					$strTable.="<td bgcolor='#FE88AD' align='center'>".$arrDiasSemana[$i]."</td>";
+				else
+					$strTable .= "<td>".$arrDiasSemana[$i]."</td>";
+			}
+			$strTable .= "</tr>";
+		}
+		array_push($arrAux,$value);
+	}
+
+	//Todos os quartos com excessão dos que não tem reserva
+	foreach ($arrAllQuartos as $key => $value)
+	{
+		$strTable .= "<tr>";
+			if(!in_array($key,$arrIdQuarto))
+			{
+				$strTable .= "<td>".$value."</td>";
+				for($i=0; $i<count($arrDiasSemana); $i++)
+				{
+					$strTable .= "<td>".$arrDiasSemana[$i]."</td>";
+				}
+			}
+			$strTable .= "</tr>";
+	}
+
+	$strTable .= "</tbody>";
+	$strTable .= "</table>";
+	echo $strTable;
+}
+?>

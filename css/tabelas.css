@@ -1,0 +1,52 @@
+#tabelaBoletinsOcorrencia{
+	margin-top:5px;
+}
+
+.tabelaPadrao{
+	/*border-collapse:colspan;*/
+	font-size:10pt;
+	font-family:verdana;
+	border:none;
+}
+.tabelaPadrao th{
+	background-color:#044561;
+	padding:7px 0;
+	color:#FFF;
+	border:1px solid #DDD;
+	margin:0;
+}
+.tabelaPadrao td{
+	background-color:#E5F5FC;
+	font-size:8pt;
+	padding:0 2px;
+	color:#000;
+	border:1px solid #DDD;
+	height:30px !important;
+}
+.tabelaPadrao .thAcoes{
+	background-color:#FFF;
+	border:none;
+}
+
+.hand{
+	cursor:hand;
+}
+.tdDescricao{
+	padding:0 5px !important;
+	text-align:justify;
+}
+#tabelaRelacaoUsuarios td{
+	padding:2px;
+}
+
+.tabelaAcompanhamentos{
+	margin-top:10px;
+}
+
+.tabelaFotosAcomp{
+	margin:5px;
+}
+
+.tabelaSemIco td{
+	padding:3px 0 !important;
+}

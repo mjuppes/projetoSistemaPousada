@@ -1,0 +1,45 @@
+<?php
+class  CATEGORIA
+{
+    var $table_name = 'CATEGORIA';
+    var $idcategoria;
+    var $nomecategoria;
+	
+	function getIdcategoria()
+	{
+		return $this->idcategoria;
+	}
+	function setIdcategoria($idcategoria)
+	{
+		$this->idcategoria = $idcategoria;
+	}
+	
+	function getNomecategoria()
+	{
+		return $this->nomecategoria;
+	}
+	function setNomecategoria($nomecategoria)
+	{
+		$this->nomecategoria = $nomecategoria;
+	}
+
+
+	public function selectCategoria($arr,$where=false,$whereFiltro = false)
+	{
+		$Bd = new Bd(CONEXAO);
+		$dadosRecordSet = array();
+
+		$strSQL = "select idcategoria,nomecategoria from categoria";
+
+		$dadosRecordSet = $Bd->execQuery($strSQL,true);
+
+		if($dadosRecordSet)
+			$resposta = true;
+		else
+			$resposta = false;
+
+		$Bd->closeConnect();
+		return $dadosRecordSet;
+	}
+}
+?>

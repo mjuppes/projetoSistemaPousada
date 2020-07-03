@@ -1,0 +1,15 @@
+.graficoGeral{
+	margin:0 auto;
+}
+
+.btnGrafico{
+	width:140px;
+	border:1px solid #DDD;
+	font-weight:bold;
+	cursor:pointer;
+	background-color:#EEE;
+	padding:5px 0;
+	color:#00CC00;
+	font-size:14pt;
+	margin-top:10px;
+}
